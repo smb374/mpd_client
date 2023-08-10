@@ -20,11 +20,15 @@ use mpd_protocol::{
     response::Frame,
 };
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 pub use self::{command_list::CommandList, definitions::*};
 use crate::responses::TypedResponseError;
 
 /// Stable identifier of a song in the queue.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct SongId(pub u64);
 
 impl From<u64> for SongId {
@@ -43,6 +47,7 @@ impl Argument for SongId {
 ///
 /// This will change when the queue is modified.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct SongPosition(pub usize);
 
 impl From<usize> for SongPosition {
@@ -59,6 +64,7 @@ impl Argument for SongPosition {
 
 /// Possible ways to seek in the current song.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum SeekMode {
     /// Forwards from current position.
     Forward(Duration),
@@ -70,6 +76,7 @@ pub enum SeekMode {
 
 /// Possible `single` modes.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[allow(missing_docs)]
 pub enum SingleMode {
     Enabled,
@@ -79,6 +86,7 @@ pub enum SingleMode {
 
 /// Modes to target a song with a command.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Song {
     /// By ID
     Id(SongId),

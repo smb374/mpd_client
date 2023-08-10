@@ -2,6 +2,9 @@ use std::{collections::HashMap, mem, path::Path, time::Duration};
 
 use mpd_protocol::response::Frame;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 use crate::{
     commands::{SongId, SongPosition},
     responses::{parse_duration, FromFieldValue, Timestamp, TypedResponseError},
@@ -12,6 +15,7 @@ use crate::{
 ///
 /// [`playlistinfo`]: crate::commands::definitions::Queue
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct SongInQueue {
     /// Position in queue.
@@ -64,6 +68,7 @@ impl SongInQueue {
 /// [playlist]: crate::commands::definitions::Queue
 /// [current song]: crate::commands::definitions::CurrentSong
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct Song {
     /// Unique identifier of the song. May be a file path relative to the library root, or an URL
@@ -156,6 +161,7 @@ impl Song {
 
 /// Range used when playing only part of a [`Song`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct SongRange {
     /// Start playback at this timestamp.
     pub from: Duration,

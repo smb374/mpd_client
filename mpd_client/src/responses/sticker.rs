@@ -2,12 +2,16 @@ use std::collections::HashMap;
 
 use mpd_protocol::response::Frame;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 use crate::responses::{KeyValuePair, TypedResponseError};
 
 /// Response to the [`sticker get`] command.
 ///
 /// [`sticker get`]: crate::commands::definitions::StickerGet
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct StickerGet {
     /// The sticker value
@@ -45,6 +49,7 @@ impl From<StickerGet> for String {
 ///
 /// [`sticker list`]: crate::commands::definitions::StickerList
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct StickerList {
     /// A map of sticker names to their values
@@ -74,6 +79,7 @@ impl From<StickerList> for HashMap<String, String> {
 ///
 /// [`sticker find`]: crate::commands::definitions::StickerFind
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct StickerFind {
     /// A map of songs to their sticker values

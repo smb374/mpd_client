@@ -12,6 +12,9 @@ use std::{error::Error, fmt, num::ParseIntError, str::FromStr, sync::Arc, time::
 use bytes::BytesMut;
 use mpd_protocol::response::Frame;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 pub use self::{
     count::Count,
     list::{GroupedListValuesIter, List, ListValuesIntoIter, ListValuesIter},
@@ -250,6 +253,7 @@ fn parse_duration<V: AsRef<str> + Into<String>>(
 
 /// Possible playback states.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[allow(missing_docs)]
 pub enum PlayState {
     Stopped,
@@ -264,6 +268,7 @@ pub enum PlayState {
 /// [`status`]: crate::commands::definitions::Status
 /// [status-command]: https://www.musicpd.org/doc/html/protocol.html#command-status
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[allow(missing_docs)]
 #[non_exhaustive]
 pub struct Status {
@@ -340,6 +345,7 @@ impl Status {
 ///
 /// [`stats`]: crate::commands::definitions::Stats
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[allow(missing_docs)]
 #[non_exhaustive]
 pub struct Stats {
@@ -371,6 +377,7 @@ impl Stats {
 /// Response to the [`albumart`][crate::commands::AlbumArt] and
 /// [`readpicture`][crate::commands::AlbumArtEmbedded] commands.
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct AlbumArt {
     /// The total size in bytes of the file.

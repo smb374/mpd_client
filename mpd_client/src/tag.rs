@@ -10,6 +10,9 @@ use std::{
 use bytes::{BufMut, BytesMut};
 use mpd_protocol::command::Argument;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 /// Tags which can be set on a [`Song`].
 ///
 /// [MusicBrainz] tags are named differently from how they appear in the protocol to better
@@ -32,6 +35,7 @@ use mpd_protocol::command::Argument;
 /// [`Song`]: crate::responses::Song
 /// [MusicBrainz]: https://musicbrainz.org
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[allow(missing_docs)]
 #[non_exhaustive]
 pub enum Tag {

@@ -2,6 +2,9 @@ use std::time::Duration;
 
 use mpd_protocol::response::Frame;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 use crate::{
     responses::{value, FromFieldValue, TypedResponseError},
     tag::Tag,
@@ -9,6 +12,7 @@ use crate::{
 
 /// Response to the [`Count`][crate::commands::Count] command.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct Count {
     /// Number of songs

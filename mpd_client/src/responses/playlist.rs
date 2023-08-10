@@ -1,11 +1,15 @@
 use mpd_protocol::response::Frame;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 use crate::responses::{FromFieldValue, Timestamp, TypedResponseError};
 
 /// A stored playlist, as returned by [`listplaylists`].
 ///
 /// [`listplaylists`]: crate::commands::definitions::GetPlaylists
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[non_exhaustive]
 pub struct Playlist {
     /// Name of the playlist.

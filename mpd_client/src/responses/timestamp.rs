@@ -1,12 +1,16 @@
 #[cfg(feature = "chrono")]
 use chrono::{DateTime, FixedOffset};
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 use crate::responses::{FromFieldValue, TypedResponseError};
 
 /// A timestamp, used for modification times.
 ///
 /// This is a newtype wrapper to allow the optional use of the `chrono` library.
 #[derive(Clone, Debug, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Timestamp {
     raw: String,
     #[cfg(feature = "chrono")]
