@@ -3,6 +3,8 @@ use chrono::{DateTime, FixedOffset};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "specta")]
+use specta::Type;
 
 use crate::responses::{FromFieldValue, TypedResponseError};
 
@@ -11,6 +13,7 @@ use crate::responses::{FromFieldValue, TypedResponseError};
 /// This is a newtype wrapper to allow the optional use of the `chrono` library.
 #[derive(Clone, Debug, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 pub struct Timestamp {
     raw: String,
     #[cfg(feature = "chrono")]

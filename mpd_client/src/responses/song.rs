@@ -4,6 +4,8 @@ use mpd_protocol::response::Frame;
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "specta")]
+use specta::Type;
 
 use crate::{
     commands::{SongId, SongPosition},
@@ -16,6 +18,7 @@ use crate::{
 /// [`playlistinfo`]: crate::commands::definitions::Queue
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[non_exhaustive]
 pub struct SongInQueue {
     /// Position in queue.
@@ -69,6 +72,7 @@ impl SongInQueue {
 /// [current song]: crate::commands::definitions::CurrentSong
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[non_exhaustive]
 pub struct Song {
     /// Unique identifier of the song. May be a file path relative to the library root, or an URL
@@ -162,6 +166,7 @@ impl Song {
 /// Range used when playing only part of a [`Song`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 pub struct SongRange {
     /// Start playback at this timestamp.
     pub from: Duration,

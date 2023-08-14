@@ -10,6 +10,8 @@ use mpd_protocol::command::Argument;
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "specta")]
+use specta::Type;
 
 use crate::tag::Tag;
 
@@ -20,11 +22,13 @@ const TAG_IS_ABSENT: &str = "";
 /// [filter expression]: https://www.musicpd.org/doc/html/protocol.html#filters
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 pub struct Filter(FilterType);
 
 /// Internal filter variant type
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 enum FilterType {
     Tag {
         tag: Tag,
@@ -201,6 +205,7 @@ impl FilterType {
 /// Operators which can be used in filter expressions.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 pub enum Operator {
     /// Equality (`==`)
     Equal,

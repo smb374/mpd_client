@@ -12,6 +12,8 @@ use mpd_protocol::command::Argument;
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "specta")]
+use specta::Type;
 
 /// Tags which can be set on a [`Song`].
 ///
@@ -36,6 +38,7 @@ use serde::{Deserialize, Serialize};
 /// [MusicBrainz]: https://musicbrainz.org
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[allow(missing_docs)]
 #[non_exhaustive]
 pub enum Tag {
@@ -72,7 +75,7 @@ pub enum Tag {
     Work,
     /// Catch-all variant that contains the raw tag string when it doesn't match any other
     /// variants, but is valid.
-    Other(Box<str>),
+    Other(#[cfg_attr(feature = "specta", specta(type = String))] Box<str>),
 }
 
 impl Tag {

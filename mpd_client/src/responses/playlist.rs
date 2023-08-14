@@ -2,6 +2,8 @@ use mpd_protocol::response::Frame;
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "specta")]
+use specta::Type;
 
 use crate::responses::{FromFieldValue, Timestamp, TypedResponseError};
 
@@ -10,6 +12,7 @@ use crate::responses::{FromFieldValue, Timestamp, TypedResponseError};
 /// [`listplaylists`]: crate::commands::definitions::GetPlaylists
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[non_exhaustive]
 pub struct Playlist {
     /// Name of the playlist.

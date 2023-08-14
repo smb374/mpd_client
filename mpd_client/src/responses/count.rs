@@ -4,6 +4,8 @@ use mpd_protocol::response::Frame;
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "specta")]
+use specta::Type;
 
 use crate::{
     responses::{value, FromFieldValue, TypedResponseError},
@@ -13,6 +15,7 @@ use crate::{
 /// Response to the [`Count`][crate::commands::Count] command.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[non_exhaustive]
 pub struct Count {
     /// Number of songs

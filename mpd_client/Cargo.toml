@@ -19,6 +19,7 @@ mpd_protocol = { version = "1.0.1", features = [
     "async",
 ], path = "../mpd_protocol" }
 serde = { version = "1.0.60", features = ["derive"], optional = true }
+specta = { version = "1.0.5", features = ["typescript"], optional = true }
 tokio = { version = "1.29.1", features = [
     "rt",
     "net",
@@ -34,7 +35,8 @@ tokio-test = "0.4.2"
 tracing-subscriber = "0.3.17"
 
 [features]
-serde = ["dep:serde", "bytes/serde", "chrono/serde"]
+serde = ["dep:serde", "bytes/serde", "chrono?/serde"]
+chrono = ["dep:chrono", "specta?/chrono"]
 
 [package.metadata.docs.rs]
 all-features = true

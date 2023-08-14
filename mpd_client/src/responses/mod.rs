@@ -14,6 +14,8 @@ use mpd_protocol::response::Frame;
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "specta")]
+use specta::Type;
 
 pub use self::{
     count::Count,
@@ -254,6 +256,7 @@ fn parse_duration<V: AsRef<str> + Into<String>>(
 /// Possible playback states.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[allow(missing_docs)]
 pub enum PlayState {
     Stopped,
@@ -269,6 +272,7 @@ pub enum PlayState {
 /// [status-command]: https://www.musicpd.org/doc/html/protocol.html#command-status
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[allow(missing_docs)]
 #[non_exhaustive]
 pub struct Status {
@@ -346,6 +350,7 @@ impl Status {
 /// [`stats`]: crate::commands::definitions::Stats
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[allow(missing_docs)]
 #[non_exhaustive]
 pub struct Stats {
@@ -378,6 +383,7 @@ impl Stats {
 /// [`readpicture`][crate::commands::AlbumArtEmbedded] commands.
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "specta", derive(Type))]
 #[non_exhaustive]
 pub struct AlbumArt {
     /// The total size in bytes of the file.
@@ -385,6 +391,7 @@ pub struct AlbumArt {
     /// The mime type, if known.
     pub mime: Option<String>,
     /// The raw data.
+    #[cfg_attr(feature = "specta", specta(type = Vec<u8>))]
     pub data: BytesMut,
 }
 
